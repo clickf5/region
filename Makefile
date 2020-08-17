@@ -5,4 +5,7 @@ build:
 	rm -rf build
 	npm run build
 
+install:
+	npm install
+
 .PHONY: build
