@@ -15,7 +15,7 @@ const App = () => (
           <div className="form-row align-items-end">
             <div className="form-group col-5">
               <label htmlFor="data">Данные:</label>
-              <select className="form-control" id="data">
+              <select className="form-control" id="data" name="data">
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
