@@ -25,7 +25,7 @@ const App = () => (
             </div>
             <div className="form-group col-1">
               <div className="btn-group btn-block" role="group" aria-label="Basic example">
-                <button type="button" className="btn btn-primary">+</button>
+                <button type="button" className="btn btn-success">+</button>
                 <button type="button" className="btn btn-danger">-</button>
               </div>
             </div>
