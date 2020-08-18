@@ -7,5 +7,5 @@ make install
 ````
 ## Run
 ````shell script
-make develop
+make dev
 ````
