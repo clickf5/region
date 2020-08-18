@@ -13,12 +13,14 @@ class Form extends React.Component {
         salonId: '1',
         delimeter: ',',
         sortFrom: '0',
+        useTruncate: false,
       },
     };
   }
 
   handleChange = ({ target }) => {
-    const { name, value } = target;
+    const { name, type } = target;
+    const value = (type === 'checkbox') ? target.checked : target.value;
     const { form } = this.state;
     this.setState({ form: { ...form, [name]: value } });
   }
@@ -36,7 +38,7 @@ class Form extends React.Component {
   }
 
   render() {
-    const { salonId, delimeter, sortFrom } = this.state.form;
+    const { salonId, delimeter, sortFrom, useTruncate } = this.state.form;
     return (
       <form>
         <div className="form-row align-items-end">
@@ -66,7 +68,7 @@ class Form extends React.Component {
         <div className="form-row">
           <div className="form-group col-2">
             <div className="form-check">
-              <input className="form-check-input" type="checkbox" id="truncate" value="option1" />
+              <input onChange={this.handleChange} name="useTruncate" checked={useTruncate} className="form-check-input" type="checkbox" id="truncate" value="option1" />
               <label className="form-check-label" htmlFor="truncate">Добавить TRUNCATE</label>
             </div>
           </div>
