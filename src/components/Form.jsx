@@ -14,6 +14,7 @@ class Form extends React.Component {
         delimeter: ',',
         sortFrom: '0',
         useTruncate: false,
+        foreignKeysOff: false,
       },
     };
   }
@@ -38,7 +39,7 @@ class Form extends React.Component {
   }
 
   render() {
-    const { salonId, delimeter, sortFrom, useTruncate } = this.state.form;
+    const { salonId, delimeter, sortFrom, useTruncate, foreignKeysOff } = this.state.form;
     return (
       <form>
         <div className="form-row align-items-end">
@@ -68,13 +69,13 @@ class Form extends React.Component {
         <div className="form-row">
           <div className="form-group col-2">
             <div className="form-check">
-              <input onChange={this.handleChange} name="useTruncate" checked={useTruncate} className="form-check-input" type="checkbox" id="truncate" value="option1" />
+              <input onChange={this.handleChange} name="useTruncate" checked={useTruncate} className="form-check-input" type="checkbox" />
               <label className="form-check-label" htmlFor="truncate">Добавить TRUNCATE</label>
             </div>
           </div>
           <div className="form-group col-4">
             <div className="form-check">
-              <input className="form-check-input" type="checkbox" id="truncate" value="option1" />
+              <input onChange={this.handleChange} name="foreignKeysOff" checked={foreignKeysOff} className="form-check-input" type="checkbox" />
               <label className="form-check-label" htmlFor="truncate">Отключить проверку связанных ключей</label>
             </div>
           </div>
