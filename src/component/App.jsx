@@ -12,8 +12,8 @@ const App = () => (
     <div className="row">
       <div className="col">
         <form>
-          <div className="form-row">
-            <div className="form-group col-4">
+          <div className="form-row align-items-end">
+            <div className="form-group col-5">
               <label htmlFor="data">Данные:</label>
               <select className="form-control" id="data">
                 <option>1</option>
@@ -22,6 +22,12 @@ const App = () => (
                 <option>4</option>
                 <option>5</option>
               </select>
+            </div>
+            <div className="form-group col-1">
+              <div className="btn-group btn-block" role="group" aria-label="Basic example">
+                <button type="button" className="btn btn-primary">+</button>
+                <button type="button" className="btn btn-danger">-</button>
+              </div>
             </div>
             <div className="form-group col-2">
               <label htmlFor="salon_id">ID салона:</label>
@@ -50,15 +56,23 @@ const App = () => (
               </div>
             </div>
           </div>
+          <div className="form-row">
+            <div className="form-group col-6">
+              <textarea className="form-control" rows="10" />
+            </div>
+            <div className="form-group col-6">
+              <textarea className="form-control" rows="10" />
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-group col-6">
+              <button type="button" className="btn btn-success">Копировать</button>
+            </div>
+            <div className="form-group col-6">
+              <button type="button" className="btn btn-success">Копировать</button>
+            </div>
+          </div>
         </form>
-      </div>
-    </div>
-    <div className="row">
-      <div className="col">
-        <textarea className="form-control" rows="10" />
-      </div>
-      <div className="col">
-        <textarea className="form-control" rows="10" />
       </div>
     </div>
   </>
