@@ -74,14 +74,14 @@ class Form extends React.Component {
         <div className="form-row">
           <div className="form-group col-2">
             <div className="form-check">
-              <input onChange={this.handleChange} name="useTruncate" checked={useTruncate} className="form-check-input" type="checkbox" />
+              <input onChange={this.handleChange} name="useTruncate" checked={useTruncate} className="form-check-input" type="checkbox" id="truncate" />
               <label className="form-check-label" htmlFor="truncate">Добавить TRUNCATE</label>
             </div>
           </div>
           <div className="form-group col-4">
             <div className="form-check">
-              <input onChange={this.handleChange} name="foreignKeysOff" checked={foreignKeysOff} className="form-check-input" type="checkbox" />
-              <label className="form-check-label" htmlFor="truncate">Отключить проверку связанных ключей</label>
+              <input onChange={this.handleChange} name="foreignKeysOff" checked={foreignKeysOff} className="form-check-input" type="checkbox" id="foreign-keys-off" />
+              <label className="form-check-label" htmlFor="foreign-keys-off">Отключить проверку внешних ключей</label>
             </div>
           </div>
         </div>
