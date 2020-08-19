@@ -21,11 +21,46 @@ class Form extends React.Component {
     };
   }
 
+  formQuery(newFormState) {
+    const { regionData, salonId, useTruncate, foreignKeysOff, delimeter, sortFrom } = newFormState;
+
+    if (regionData === '') {
+      return '';
+    }
+
+    const regions = regionData.split(delimeter);
+
+    const getInsert = (name, index, salon) => {
+      const order = index + Number(sortFrom);
+
+      return `INSERT INTO \`clients_region\` (\`name\`, \`ord\`) VALUES ('${name}', ${order});\nSET @LAST_ID = LAST_INSERT_ID();\nINSERT INTO \`clients_regions_to_salons\(\`salon_id\`, \`region_id\`, \`ord\`) VALUES (${salon}, @LAST_ID, ${order});\n`
+    }
+
+    const keysOff = 'SET FOREIGN_KEY_CHECKS=0;\n';
+    const keysOn = 'SET FOREIGN_KEY_CHECKS=1;';
+    const truncateQuery = 'TRUNCATE \`clients_region\`;\nTRUNCATE \`clients_regions_to_salons\`;\n';
+    const insertQueries = regions.map((region, index) => getInsert(region, index, salonId));
+    const result = [...insertQueries];
+
+    if (useTruncate) {
+      result.unshift(truncateQuery);
+    }
+    if (foreignKeysOff) {
+      result.unshift(keysOff);
+      result.push(keysOn);
+    }
+
+    return result.join('\n');
+  }
+
   handleChange = ({ target }) => {
     const { name, type } = target;
     const value = (type === 'checkbox') ? target.checked : target.value;
     const { form } = this.state;
-    this.setState({ form: { ...form, [name]: value } });
+    const changedValueState = { ...form, [name]: value };
+    const changedQueryState = { ...changedValueState, query: this.formQuery(changedValueState) };
+
+    this.setState({ form: { ...changedQueryState } });
   }
 
   renderRegionsSelect() {
