@@ -33,7 +33,7 @@ class Form extends React.Component {
     const getInsert = (name, index, salon) => {
       const order = index + Number(sortFrom);
 
-      return `INSERT INTO \`clients_region\` (\`name\`, \`ord\`) VALUES ('${name}', ${order});\nSET @LAST_ID = LAST_INSERT_ID();\nINSERT INTO \`clients_regions_to_salons\(\`salon_id\`, \`region_id\`, \`ord\`) VALUES (${salon}, @LAST_ID, ${order});\n`
+      return `INSERT INTO \`clients_region\` (\`name\`, \`ord\`) VALUES ('${name.trim()}', ${order});\nSET @LAST_ID = LAST_INSERT_ID();\nINSERT INTO \`clients_regions_to_salons\(\`salon_id\`, \`region_id\`, \`ord\`) VALUES (${salon}, @LAST_ID, ${order});\n`
     }
 
     const keysOff = 'SET FOREIGN_KEY_CHECKS=0;\n';
