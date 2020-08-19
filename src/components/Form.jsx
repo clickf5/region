@@ -53,6 +53,12 @@ class Form extends React.Component {
     return result.join('\n');
   }
 
+  componentDidMount() {
+    const { form } = this.state;
+
+    this.setState({ form: { ...form, query: this.formQuery(form) } });
+  }
+
   handleChange = ({ target }) => {
     const { name, type } = target;
     const value = (type === 'checkbox') ? target.checked : target.value;
