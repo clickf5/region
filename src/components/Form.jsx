@@ -9,7 +9,8 @@ class Form extends React.Component {
         { id: 2, name: 'Московская область' },
       ],
       form: {
-        region: 'Тульская область',
+        region: '1',
+        regionData: 'Тула, Алексин',
         salonId: '1',
         delimeter: ',',
         sortFrom: '0',
@@ -29,7 +30,7 @@ class Form extends React.Component {
   renderRegionsSelect() {
     const { regions, form: { region } } = this.state;
     const options = regions.map(({ id, name }) => (
-      <option key={id}>{name}</option>
+      <option key={id} value={id}>{name}</option>
     ));
     return (
       <select onChange={this.handleChange} className="form-control" id="region" value={region} name="region">
@@ -39,7 +40,11 @@ class Form extends React.Component {
   }
 
   render() {
-    const { salonId, delimeter, sortFrom, useTruncate, foreignKeysOff } = this.state.form;
+    const {
+      form: {
+        regionData, salonId, delimeter, sortFrom, useTruncate, foreignKeysOff,
+      },
+    } = this.state;
     return (
       <form>
         <div className="form-row align-items-end">
@@ -82,10 +87,10 @@ class Form extends React.Component {
         </div>
         <div className="form-row">
           <div className="form-group col-6">
-            <textarea className="form-control" rows="10" />
+            <textarea onChange={this.handleChange} className="form-control" rows="10" value={salonId} name="regionData" value={regionData} />
           </div>
           <div className="form-group col-6">
-            <textarea className="form-control" rows="10" />
+            <textarea className="form-control" rows="10" name="query" />
           </div>
         </div>
         <div className="form-row">
