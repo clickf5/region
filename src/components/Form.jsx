@@ -11,6 +11,7 @@ class Form extends React.Component {
       form: {
         region: '1',
         regionData: 'Тула, Алексин',
+        query: '',
         salonId: '1',
         delimeter: ',',
         sortFrom: '0',
@@ -42,14 +43,20 @@ class Form extends React.Component {
   render() {
     const {
       form: {
-        regionData, salonId, delimeter, sortFrom, useTruncate, foreignKeysOff,
+        regionData,
+        salonId,
+        delimeter,
+        sortFrom,
+        useTruncate,
+        foreignKeysOff,
+        query,
       },
     } = this.state;
     return (
       <form>
         <div className="form-row align-items-end">
           <div className="form-group col-5">
-            <label htmlFor="regions">Данные:</label>
+            <label htmlFor="regions">Регион:</label>
             {this.renderRegionsSelect()}
           </div>
           <div className="form-group col-1">
@@ -87,18 +94,20 @@ class Form extends React.Component {
         </div>
         <div className="form-row">
           <div className="form-group col-6">
-            <textarea onChange={this.handleChange} className="form-control" rows="10" value={regionData} name="regionData" />
+            <label className="form-check-label" htmlFor="region-data">Данные:</label>
+            <textarea onChange={this.handleChange} className="form-control" rows="10" value={regionData} name="regionData" id="region-data" />
           </div>
           <div className="form-group col-6">
-            <textarea className="form-control" rows="10" name="query" />
+            <label className="form-check-label" htmlFor="query">Запрос:</label>
+            <textarea onChange={this.handleChange} className="form-control" rows="10" value={query} name="query" id="query" />
           </div>
         </div>
         <div className="form-row">
           <div className="form-group col-6">
-            <button type="button" className="btn btn-success">Копировать</button>
+            <button type="button" className="btn btn-success" disabled={regionData === ''} title="Скопировать данные в буфер обмена">Копировать</button>
           </div>
           <div className="form-group col-6">
-            <button type="button" className="btn btn-success">Копировать</button>
+            <button type="button" className="btn btn-success" disabled={query === ''} title="Скопировать запрос в буфер обмена">Копировать</button>
           </div>
         </div>
       </form>
