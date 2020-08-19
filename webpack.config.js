@@ -8,6 +8,7 @@ const client = {
     path: path.resolve(__dirname, 'build'),
     filename: 'index.js',
   },
+  target: 'web',
   resolve: {
     modules: [path.join(__dirname, 'src'), 'node_modules'],
     alias: {
@@ -38,6 +39,14 @@ const client = {
       filename: './style/[name].css',
     }),
   ],
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        pathRewrite: { '^/api': '' },
+      },
+    },
+  },
 };
 
 const api = {
@@ -46,6 +55,7 @@ const api = {
     path: path.resolve(__dirname, 'build', 'api'),
     filename: 'server.js',
   },
+  target: 'node',
   module: {
     rules: [
       {
