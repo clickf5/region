@@ -42,6 +42,7 @@ class Form extends React.Component {
     const insertQueries = regions.map((region, index) => getInsert(region, index, salonId));
     const result = [...insertQueries];
 
+    // TODO: need to think how to do in immutable style
     if (useTruncate) {
       result.unshift(truncateQuery);
     }
