@@ -87,7 +87,7 @@ class Form extends React.Component {
         </div>
         <div className="form-row">
           <div className="form-group col-6">
-            <textarea onChange={this.handleChange} className="form-control" rows="10" value={salonId} name="regionData" />
+            <textarea onChange={this.handleChange} className="form-control" rows="10" value={regionData} name="regionData" />
           </div>
           <div className="form-group col-6">
             <textarea className="form-control" rows="10" name="query" />
