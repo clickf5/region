@@ -1,16 +1,14 @@
 import React from 'react';
+import axios from 'axios';
 
 class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      regions: [
-        { id: 1, name: 'Тульская область' },
-        { id: 2, name: 'Московская область' },
-      ],
+      regions: [],
       form: {
         region: '1',
-        regionData: 'Тула, Алексин',
+        regionData: '',
         query: '',
         salonId: '1',
         delimeter: ',',
@@ -21,9 +19,13 @@ class Form extends React.Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { form } = this.state;
-
+    const { data: { success, payload } } = await axios.get('/api/regions');
+    if (success) {
+      this.setState({ regions: payload, form: { ...form, query: this.formQuery(form) } });
+      return;
+    }
     this.setState({ form: { ...form, query: this.formQuery(form) } });
   }
 
