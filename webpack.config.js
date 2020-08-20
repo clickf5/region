@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const nodeExternals = require('webpack-node-externals');
 
 const client = {
   entry: './src/index.jsx',
@@ -56,6 +57,11 @@ const api = {
     filename: 'server.js',
   },
   target: 'node',
+  node: {
+    __dirname: false,
+    __filename: false,
+  },
+  externals: [nodeExternals()],
   module: {
     rules: [
       {
