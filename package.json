@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "webpack-dev-server --mode=development --open --hot",
-    "build": "webpack --mode=development"
+    "start-client": "webpack-dev-server --mode=development --open --hot",
+    "start-server": "nodemon --exec npx babel-node -- ./src/api/index.js",
+    "build": "webpack --mode=production && webpack --mode=production --config=webpack.server.config.js"
   },
   "author": "Eugene Panin",
   "license": "ISC",
@@ -42,7 +43,6 @@
     "style-loader": "^1.2.1",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0",
-    "webpack-node-externals": "^2.5.1"
+    "webpack-dev-server": "^3.11.0"
   }
 }
