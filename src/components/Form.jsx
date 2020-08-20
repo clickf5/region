@@ -74,13 +74,29 @@ class Form extends React.Component {
     this.setState({ form: { ...changedQueryState } });
   }
 
+  handleSelect = ({ target: { value, name } }) => {
+    const { form, regions } = this.state;
+
+    const region = regions.find(({ id }) => id === Number(value));
+
+    const changedDistricts = {
+      ...form,
+      regionData: region.districts,
+      [name]: value,
+    };
+
+    const changedQueryState = { ...changedDistricts, query: this.formQuery(changedDistricts) };
+
+    this.setState({ form: { ...changedQueryState } });
+  }
+
   renderRegionsSelect() {
     const { regions, form: { region } } = this.state;
     const options = regions.map(({ id, name }) => (
       <option key={id} value={id}>{name}</option>
     ));
     return (
-      <select onChange={this.handleChange} className="form-control" id="region" value={region} name="region">
+      <select onChange={this.handleSelect} className="form-control" id="region" value={region} name="region">
         {options}
       </select>
     );
