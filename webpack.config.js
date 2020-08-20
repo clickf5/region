@@ -6,8 +6,9 @@ module.exports = {
   entry: './src/index.jsx',
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
+    filename: 'index.js',
   },
+  target: 'web',
   resolve: {
     modules: [path.join(__dirname, 'src'), 'node_modules'],
     alias: {
@@ -38,4 +39,12 @@ module.exports = {
       filename: './style/[name].css',
     }),
   ],
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        pathRewrite: { '^/api': '' },
+      },
+    },
+  },
 };
