@@ -105,71 +105,87 @@ class Form extends React.Component {
   render() {
     const {
       form: {
-        regionData,
-        salonId,
-        delimeter,
-        sortFrom,
-        useTruncate,
-        foreignKeysOff,
-        query,
+        regionData, salonId, delimeter, sortFrom, useTruncate, foreignKeysOff, query,
       },
     } = this.state;
+
     return (
       <form>
-        <div className="form-row align-items-end">
-          <div className="form-group col-5">
-            <label htmlFor="regions">Регион:</label>
-            {this.renderRegionsSelect()}
-          </div>
-          <div className="form-group col-1">
-            <div className="btn-group btn-block" role="group" aria-label="Basic example">
-              <button type="button" className="btn btn-success">+</button>
-              <button type="button" className="btn btn-danger">-</button>
+        <div className="form-row">
+          <div className="col-5">
+            <div className="form-row align-items-end">
+              <div className="form-group col-10">
+                <label htmlFor="regions">Регион:</label>
+                {this.renderRegionsSelect()}
+              </div>
+              <div className="form-group col-2">
+                <div className="btn-group btn-block" role="group" aria-label="Basic example">
+                  <button type="button" className="btn btn-success" title='Добавить новый регион в список'>+</button>
+                  <button type="button" className="btn btn-danger" title='Удалить выбранный в списке регион'>-</button>
+                </div>
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="form-group col-4">
+                <label htmlFor="delimeter" title='Символ-разделитель элементов в поле "Данные"'>Разделитель:</label>
+                <input onChange={this.handleChange} type="text" className="form-control" id="delimeter" name="delimeter" value={delimeter} />
+              </div>
             </div>
           </div>
-          <div className="form-group col-2">
-            <label htmlFor="salon-id">ID салона:</label>
-            <input onChange={this.handleChange} type="text" className="form-control" id="salon-id" name="salonId" value={salonId} />
-          </div>
-          <div className="form-group col-2">
-            <label htmlFor="delimeter">Разделитель:</label>
-            <input onChange={this.handleChange} type="text" className="form-control" id="delimeter" name="delimeter" value={delimeter} />
-          </div>
-          <div className="form-group col-2">
-            <label htmlFor="sort_from">Сортировка начиная с:</label>
-            <input onChange={this.handleChange} type="text" className="form-control" id="sort-from" name="sortFrom" value={sortFrom} />
-          </div>
-        </div>
-        <div className="form-row">
-          <div className="form-group col-2">
-            <div className="form-check">
-              <input onChange={this.handleChange} name="useTruncate" checked={useTruncate} className="form-check-input" type="checkbox" id="truncate" />
-              <label className="form-check-label" htmlFor="truncate">Добавить TRUNCATE</label>
+          <div className="col-7">
+            <div className="form-row">
+              <div className="form-group col-4">
+                <label htmlFor="salon-id" title="ID дилерского центра в CRM">ID салона:</label>
+                <input onChange={this.handleChange} type="text" className="form-control" id="salon-id" name="salonId" value={salonId} />
+              </div>
+              <div className="form-group col-4">
+                <label htmlFor="sort_from" title="Смещение значений для поля `ord` в таблицах `clients_region` и `clients_regions_to_salons`">Сортировка начиная с:</label>
+                <input onChange={this.handleChange} type="text" className="form-control" id="sort-from" name="sortFrom" value={sortFrom} />
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="form-group col-4">
+                <div className="form-check">
+                  <input onChange={this.handleChange} name="useTruncate" checked={useTruncate} className="form-check-input" type="checkbox" id="truncate" />
+                  <label className="form-check-label" htmlFor="truncate" title={`Добавляет запросы на очистку таблиц \nTRUNCATE \`clients_region\`;\nTRUNCATE \`clients_regions_to_salons\`;`}>Добавить TRUNCATE</label>
+                </div>
+              </div>
+              <div className="form-group col-6">
+                <div className="form-check">
+                  <input onChange={this.handleChange} name="foreignKeysOff" checked={foreignKeysOff} className="form-check-input" type="checkbox" id="foreign-keys-off" />
+                  <label className="form-check-label" htmlFor="foreign-keys-off" title={`Добавляет запросы\nSET FOREIGN_KEY_CHECKS=0; вначале\nSET FOREIGN_KEY_CHECKS=1; в конце.`}>Отключать проверку внешних ключей</label>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="form-group col-4">
-            <div className="form-check">
-              <input onChange={this.handleChange} name="foreignKeysOff" checked={foreignKeysOff} className="form-check-input" type="checkbox" id="foreign-keys-off" />
-              <label className="form-check-label" htmlFor="foreign-keys-off">Отключить проверку внешних ключей</label>
+        </div>
+
+        <div className="form-row">
+          <div className="col-5">
+            <div className="form-row">
+              <div className="form-group col-12">
+                <label className="form-check-label" htmlFor="region-data">Данные:</label>
+                <textarea onChange={this.handleChange} className="form-control" rows="10" value={regionData} name="regionData" id="region-data" />
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="form-group col-4">
+                <button type="button" className="btn btn-success" disabled={regionData === ''} title="Скопировать данные в буфер обмена">Копировать</button>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="form-row">
-          <div className="form-group col-6">
-            <label className="form-check-label" htmlFor="region-data">Данные:</label>
-            <textarea onChange={this.handleChange} className="form-control" rows="10" value={regionData} name="regionData" id="region-data" />
-          </div>
-          <div className="form-group col-6">
-            <label className="form-check-label" htmlFor="query">Запрос:</label>
-            <textarea onChange={this.handleChange} className="form-control" rows="10" value={query} name="query" id="query" />
-          </div>
-        </div>
-        <div className="form-row">
-          <div className="form-group col-6">
-            <button type="button" className="btn btn-success" disabled={regionData === ''} title="Скопировать данные в буфер обмена">Копировать</button>
-          </div>
-          <div className="form-group col-6">
-            <button type="button" className="btn btn-success" disabled={query === ''} title="Скопировать запрос в буфер обмена">Копировать</button>
+          <div className="col-7">
+            <div className="form-row">
+              <div className="form-group col-12">
+                <label className="form-check-label" htmlFor="query">Запрос:</label>
+                <textarea onChange={this.handleChange} className="form-control" rows="10" value={query} name="query" id="query" />
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="form-group col-4">
+                <button type="button" className="btn btn-success" disabled={query === ''} title="Скопировать запрос в буфер обмена">Копировать</button>
+              </div>
+            </div>
           </div>
         </div>
       </form>
