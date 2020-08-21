@@ -43,7 +43,7 @@ class Form extends React.Component {
     const getInsert = (name, index, salon) => {
       const order = index + Number(sortFrom);
 
-      return `INSERT INTO \`clients_region\` (\`name\`, \`ord\`) VALUES ('${name.trim()}', ${order});\nSET @LAST_ID = LAST_INSERT_ID();\nINSERT INTO \`clients_regions_to_salons\`(\`salon_id\`, \`region_id\`, \`ord\`) VALUES (${salon}, @LAST_ID, ${order});\n`;
+      return `INSERT INTO \`clients_region\`(\`name\`, \`ord\`) VALUES ('${name.trim()}', ${order});\nSET @LAST_ID = LAST_INSERT_ID();\nINSERT INTO \`clients_regions_to_salons\`(\`salon_id\`, \`region_id\`, \`ord\`) VALUES (${salon}, @LAST_ID, ${order});\n`;
     };
 
     const keysOff = 'SET FOREIGN_KEY_CHECKS=0;\n';
@@ -120,8 +120,8 @@ class Form extends React.Component {
               </div>
               <div className="form-group col-2">
                 <div className="btn-group btn-block" role="group" aria-label="Basic example">
-                  <button type="button" className="btn btn-success" title='Добавить новый регион в список'>+</button>
-                  <button type="button" className="btn btn-danger" title='Удалить выбранный в списке регион'>-</button>
+                  <button type="button" className="btn btn-success" title="Добавить новый регион в список">+</button>
+                  <button type="button" className="btn btn-danger" title="Удалить выбранный в списке регион">-</button>
                 </div>
               </div>
             </div>
@@ -147,13 +147,13 @@ class Form extends React.Component {
               <div className="form-group col-4">
                 <div className="form-check">
                   <input onChange={this.handleChange} name="useTruncate" checked={useTruncate} className="form-check-input" type="checkbox" id="truncate" />
-                  <label className="form-check-label" htmlFor="truncate" title={`Добавляет запросы на очистку таблиц \nTRUNCATE \`clients_region\`;\nTRUNCATE \`clients_regions_to_salons\`;`}>Добавить TRUNCATE</label>
+                  <label className="form-check-label" htmlFor="truncate" title={'Добавляет запросы на очистку таблиц \nTRUNCATE `clients_region`;\nTRUNCATE `clients_regions_to_salons`;'}>Добавить TRUNCATE</label>
                 </div>
               </div>
               <div className="form-group col-6">
                 <div className="form-check">
                   <input onChange={this.handleChange} name="foreignKeysOff" checked={foreignKeysOff} className="form-check-input" type="checkbox" id="foreign-keys-off" />
-                  <label className="form-check-label" htmlFor="foreign-keys-off" title={`Добавляет запросы\nSET FOREIGN_KEY_CHECKS=0; вначале\nSET FOREIGN_KEY_CHECKS=1; в конце.`}>Отключать проверку внешних ключей</label>
+                  <label className="form-check-label" htmlFor="foreign-keys-off" title={'Добавляет запросы\nSET FOREIGN_KEY_CHECKS=0; вначале\nSET FOREIGN_KEY_CHECKS=1; в конце.'}>Отключать проверку внешних ключей</label>
                 </div>
               </div>
             </div>
