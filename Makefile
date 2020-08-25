@@ -14,4 +14,7 @@ install:
 test:
 	npm test
 
+lint:
+	npx eslint .
+
 .PHONY: build
