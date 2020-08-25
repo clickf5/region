@@ -12,12 +12,13 @@ server.use(Express.json());
 server.get('/regions', (req, res) => res.json({ success: true, payload: regions }));
 
 server.get('/region/:id', (req, res) => {
-  const region = regions.find(({ id }) => id === req.query.id);
+  const region = regions.find(({ id }) => id.toString() === req.params.id);
+  console.log(region);
 
   const errors = {};
 
   if (region === undefined) {
-    errors.message = `Not found region with id: ${req.query.id}`;
+    errors.message = `Not found region with id: ${req.params.id}`;
   }
 
   if (Object.keys(errors).length > 0) {
@@ -48,16 +49,17 @@ server.post('/region', (req, res) => {
 
   const region = new Region(name, districts);
   regions.push(region);
+  res.status(201);
   res.json({ success: true, payload: region });
 });
 
 server.delete('/region/:id', (req, res) => {
-  const region = regions.find(({ id }) => id === req.query.id);
+  const region = regions.find(({ id }) => id.toString() === req.params.id);
 
   const errors = {};
 
   if (region === undefined) {
-    errors.message = `Not found region with id: ${req.query.id}`;
+    errors.message = `Not found region with id: ${req.params.id}`;
   }
 
   if (Object.keys(errors).length > 0) {
@@ -71,12 +73,12 @@ server.delete('/region/:id', (req, res) => {
 
 server.put('/region/:id', (req, res) => {
   const { name, districts } = req.body;
-  const region = regions.find(({ id }) => id === req.query.id);
+  const region = regions.find(({ id }) => id.toString() === req.params.id);
 
   const errors = {};
 
   if (region === undefined) {
-    errors.message = `Not found region with id: ${req.query.id}`;
+    errors.message = `Not found region with id: ${req.params.id}`;
   }
 
   if (name === undefined || name === '') {
