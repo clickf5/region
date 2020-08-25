@@ -38,7 +38,7 @@ server.post('/region', (req, res) => {
   }
 
   if (districts === undefined || districts === '') {
-    errors.name = "districts cant't be blank";
+    errors.districts = "districts cant't be blank";
   }
 
   if (Object.keys(errors).length > 0) {
@@ -67,6 +67,34 @@ server.delete('/region/:id', (req, res) => {
 
   regions = regions.filter(({ id }) => id !== region.id);
   res.json({ success: true });
+});
+
+server.put('/region/:id', (req, res) => {
+  const { name, districts } = req.body;
+  const region = regions.find(({ id }) => id === req.query.id);
+
+  const errors = {};
+
+  if (region === undefined) {
+    errors.message = `Not found region with id: ${req.query.id}`;
+  }
+
+  if (name === undefined || name === '') {
+    errors.name = "name cant't be blank";
+  }
+
+  if (districts === undefined || districts === '') {
+    errors.districts = "districts cant't be blank";
+  }
+
+  if (Object.keys(errors).length > 0) {
+    res.status(422);
+    res.json({ success: false, errors });
+  }
+
+  const updated = { ...region, name, districts };
+  regions = regions.map((r) => ((r.id === region.id) ? updated : r));
+  res.json({ success: true, payload: updated });
 });
 
 export default server;
