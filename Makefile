@@ -4,6 +4,9 @@ dev-client:
 dev-server:
 	npm run start-server
 
+dev-mongo:
+	docker-compose up --build -d mongo
+
 build:
 	rm -rf build
 	npm run build
