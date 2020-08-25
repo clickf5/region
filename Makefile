@@ -11,4 +11,7 @@ build:
 install:
 	npm install
 
+test:
+	npm test
+
 .PHONY: build
