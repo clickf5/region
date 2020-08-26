@@ -7,96 +7,108 @@ let regions = [
 ];
 
 const server = new Express();
+
 server.use(Express.json());
 
-server.get('/regions', (req, res) => res.json({ success: true, payload: regions }));
+export default (database) => {
+  server.get('/regi', async (req, res) => {
+    try {
+      const result = await database.collection('regions').find().toArray();
+      res.json(result);
+    } catch (e) {
+      res.status(422);
+      res.json({ success: false, errors: { message: e.message } });
+    }
+  });
 
-server.get('/region/:id', (req, res) => {
-  const region = regions.find(({ id }) => id.toString() === req.params.id);
-  console.log(region);
+  server.get('/regions', (req, res) => res.json({ success: true, payload: regions }));
 
-  const errors = {};
+  server.get('/region/:id', (req, res) => {
+    const region = regions.find(({ id }) => id.toString() === req.params.id);
 
-  if (region === undefined) {
-    errors.message = `Not found region with id: ${req.params.id}`;
-  }
+    const errors = {};
 
-  if (Object.keys(errors).length > 0) {
-    res.status(422);
-    res.json({ success: false, errors });
-  }
+    if (region === undefined) {
+      errors.message = `Not found region with id: ${req.params.id}`;
+    }
 
-  res.json({ success: true, payload: region });
-});
+    if (Object.keys(errors).length > 0) {
+      res.status(422);
+      res.json({ success: false, errors });
+    }
 
-server.post('/region', (req, res) => {
-  const { name, districts } = req.body;
+    res.json({ success: true, payload: region });
+  });
 
-  const errors = {};
+  server.post('/region', (req, res) => {
+    const { name, districts } = req.body;
 
-  if (name === undefined || name === '') {
-    errors.name = "name cant't be blank";
-  }
+    const errors = {};
 
-  if (districts === undefined || districts === '') {
-    errors.districts = "districts cant't be blank";
-  }
+    if (name === undefined || name === '') {
+      errors.name = "name cant't be blank";
+    }
 
-  if (Object.keys(errors).length > 0) {
-    res.status(422);
-    res.json({ success: false, errors });
-  }
+    if (districts === undefined || districts === '') {
+      errors.districts = "districts cant't be blank";
+    }
 
-  const region = new Region(name, districts);
-  regions.push(region);
-  res.status(201);
-  res.json({ success: true, payload: region });
-});
+    if (Object.keys(errors).length > 0) {
+      res.status(422);
+      res.json({ success: false, errors });
+    }
 
-server.delete('/region/:id', (req, res) => {
-  const region = regions.find(({ id }) => id.toString() === req.params.id);
+    const region = new Region(name, districts);
+    regions.push(region);
+    res.status(201);
+    res.json({ success: true, payload: region });
+  });
 
-  const errors = {};
+  server.delete('/region/:id', (req, res) => {
+    const region = regions.find(({ id }) => id.toString() === req.params.id);
 
-  if (region === undefined) {
-    errors.message = `Not found region with id: ${req.params.id}`;
-  }
+    const errors = {};
 
-  if (Object.keys(errors).length > 0) {
-    res.status(422);
-    res.json({ success: false, errors });
-  }
+    if (region === undefined) {
+      errors.message = `Not found region with id: ${req.params.id}`;
+    }
 
-  regions = regions.filter(({ id }) => id !== region.id);
-  res.json({ success: true });
-});
+    if (Object.keys(errors).length > 0) {
+      res.status(422);
+      res.json({ success: false, errors });
+    }
 
-server.put('/region/:id', (req, res) => {
-  const { name, districts } = req.body;
-  const region = regions.find(({ id }) => id.toString() === req.params.id);
+    regions = regions.filter(({ id }) => id !== region.id);
+    res.json({ success: true });
+  });
 
-  const errors = {};
+  server.put('/region/:id', (req, res) => {
+    const { name, districts } = req.body;
+    const region = regions.find(({ id }) => id.toString() === req.params.id);
 
-  if (region === undefined) {
-    errors.message = `Not found region with id: ${req.params.id}`;
-  }
+    const errors = {};
 
-  if (name === undefined || name === '') {
-    errors.name = "name cant't be blank";
-  }
+    if (region === undefined) {
+      errors.message = `Not found region with id: ${req.params.id}`;
+    }
 
-  if (districts === undefined || districts === '') {
-    errors.districts = "districts cant't be blank";
-  }
+    if (name === undefined || name === '') {
+      errors.name = "name cant't be blank";
+    }
 
-  if (Object.keys(errors).length > 0) {
-    res.status(422);
-    res.json({ success: false, errors });
-  }
+    if (districts === undefined || districts === '') {
+      errors.districts = "districts cant't be blank";
+    }
 
-  const updated = { ...region, name, districts };
-  regions = regions.map((r) => ((r.id === region.id) ? updated : r));
-  res.json({ success: true, payload: updated });
-});
+    if (Object.keys(errors).length > 0) {
+      res.status(422);
+      res.json({ success: false, errors });
+    }
 
-export default server;
+    const updated = { ...region, name, districts };
+    regions = regions.map((r) => ((r.id === region.id) ? updated : r));
+    res.json({ success: true, payload: updated });
+  });
+
+  return server;
+};
