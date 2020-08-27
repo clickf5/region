@@ -1,9 +1,9 @@
 import { MongoClient } from 'mongodb';
 import server from './server';
 
-const uri = 'mongodb://admin:xxx111@localhost:27017';
+const uri = 'mongodb://admin:xxx111@localhost:27017/admin';
 const dbName = 'region';
-const client = new MongoClient(uri, { useUnifiedTopology: true });
+const client = new MongoClient(uri, { useUnifiedTopology: true, useNewUrlParser: true });
 
 const getDb = async () => {
   if (!client.isConnected()) {

@@ -1,4 +1,5 @@
 import Express from 'express';
+import { ObjectID } from 'mongodb';
 import Region from './Region';
 
 let regions = [
@@ -11,33 +12,24 @@ const server = new Express();
 server.use(Express.json());
 
 export default (database) => {
-  server.get('/regi', async (req, res) => {
+  server.get('/regions', async (req, res) => {
     try {
       const result = await database.collection('regions').find().toArray();
-      res.json(result);
+      res.json({ success: true, payload: result });
     } catch (e) {
       res.status(422);
       res.json({ success: false, errors: { message: e.message } });
     }
   });
 
-  server.get('/regions', (req, res) => res.json({ success: true, payload: regions }));
-
-  server.get('/region/:id', (req, res) => {
-    const region = regions.find(({ id }) => id.toString() === req.params.id);
-
-    const errors = {};
-
-    if (region === undefined) {
-      errors.message = `Not found region with id: ${req.params.id}`;
-    }
-
-    if (Object.keys(errors).length > 0) {
+  server.get('/region/:id', async (req, res) => {
+    try {
+      const result = await database.collection('regions').findOne(new ObjectID(req.params.id));
+      res.json({ success: true, payload: result });
+    } catch (e) {
       res.status(422);
-      res.json({ success: false, errors });
+      res.json({ success: false, errors: { message: e.message } });
     }
-
-    res.json({ success: true, payload: region });
   });
 
   server.post('/region', (req, res) => {
