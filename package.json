@@ -50,6 +50,7 @@
     "jest-cli": "^26.4.2",
     "jest-supertest-matchers": "0.0.2",
     "mini-css-extract-plugin": "^0.10.0",
+    "mongodb-memory-server": "^6.6.6",
     "nodemon": "^2.0.4",
     "style-loader": "^1.2.1",
     "supertest": "^4.0.2",
