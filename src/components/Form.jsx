@@ -106,6 +106,21 @@ class Form extends React.Component {
     );
   }
 
+  renderDistrictsCount = () => {
+    const { form: { regionData, delimeter } } = this.state;
+    const countOfRegion = regionData.split(delimeter).length;
+    const styles = {
+      position: 'absolute', bottom: '76px', right: '19px', zIndex: 101,
+    };
+
+    return (
+      <span className="badge badge-light" style={styles}>
+        Всего элементов:&nbsp;
+        {countOfRegion}
+      </span>
+    );
+  };
+
   render() {
     const {
       form: {
@@ -166,15 +181,18 @@ class Form extends React.Component {
 
         <div className="form-row">
           <div className="col-5">
-            <div className="form-row">
-              <div className="form-group col-12">
-                <label className="form-check-label" htmlFor="region-data">Данные:</label>
-                <textarea onChange={this.handleChange} className="form-control" rows="10" value={regionData} name="regionData" id="region-data" placeholder="Внесите данные вручную или выберите регион из списка" />
+            <div style={{ position: 'relative' }}>
+              {regionData !== '' && this.renderDistrictsCount()}
+              <div className="form-row">
+                <div className="form-group col-12">
+                  <label className="form-check-label" htmlFor="region-data">Данные:</label>
+                  <textarea onChange={this.handleChange} className="form-control" rows="10" value={regionData} name="regionData" id="region-data" placeholder="Внесите данные вручную или выберите регион из списка" />
+                </div>
               </div>
-            </div>
-            <div className="form-row">
-              <div className="form-group col-4">
-                <button type="button" className="btn btn-success" disabled={regionData === ''} title="Скопировать данные в буфер обмена">Копировать</button>
+              <div className="form-row">
+                <div className="form-group col-4">
+                  <button type="button" className="btn btn-success" disabled={regionData === ''} title="Скопировать данные в буфер обмена">Копировать</button>
+                </div>
               </div>
             </div>
           </div>
