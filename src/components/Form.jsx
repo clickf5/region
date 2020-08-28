@@ -7,7 +7,7 @@ class Form extends React.Component {
     this.state = {
       regions: [],
       form: {
-        region: '1',
+        region: '',
         regionData: '',
         query: '',
         salonId: '1',
@@ -95,9 +95,13 @@ class Form extends React.Component {
     const options = regions.map(({ id, name }) => (
       <option key={id} value={id}>{name}</option>
     ));
+
+    const defaltOption = <option value="" selected disabled hidden={region !== ''}>Выберите регион</option>;
+    const withDefaultOption = [defaltOption, ...options];
+
     return (
       <select onChange={this.handleSelect} className="form-control" id="region" value={region} name="region">
-        {options}
+        {withDefaultOption}
       </select>
     );
   }
@@ -165,7 +169,7 @@ class Form extends React.Component {
             <div className="form-row">
               <div className="form-group col-12">
                 <label className="form-check-label" htmlFor="region-data">Данные:</label>
-                <textarea onChange={this.handleChange} className="form-control" rows="10" value={regionData} name="regionData" id="region-data" />
+                <textarea onChange={this.handleChange} className="form-control" rows="10" value={regionData} name="regionData" id="region-data" placeholder="Внесите данные вручную или выберите регион из списка" />
               </div>
             </div>
             <div className="form-row">
@@ -178,7 +182,7 @@ class Form extends React.Component {
             <div className="form-row">
               <div className="form-group col-12">
                 <label className="form-check-label" htmlFor="query">Запрос:</label>
-                <textarea onChange={this.handleChange} className="form-control" rows="10" value={query} name="query" id="query" />
+                <textarea onChange={this.handleChange} className="form-control" rows="10" value={query} name="query" id="query" placeholder="Запрос формируется автоматически с учетом настроек" />
               </div>
             </div>
             <div className="form-row">
