@@ -108,6 +108,11 @@ class Form extends React.Component {
 
   renderDistrictsCount = () => {
     const { form: { regionData, delimeter } } = this.state;
+
+    if (regionData === '') {
+      return null;
+    }
+
     const countOfRegion = regionData.split(delimeter).length;
     const styles = {
       position: 'absolute', bottom: '76px', right: '19px', zIndex: 101,
