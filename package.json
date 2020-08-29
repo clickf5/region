@@ -16,6 +16,9 @@
     "not IE_Mob 11",
     "maintained node versions"
   ],
+  "jest": {
+    "verbose": true
+  },
   "dependencies": {
     "axios": "^0.19.2",
     "bootstrap": "^4.5.2",
@@ -33,6 +36,7 @@
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
+    "@shelf/jest-mongodb": "^1.2.2",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.3.0",
     "babel-loader": "^8.1.0",
