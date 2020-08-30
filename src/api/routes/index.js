@@ -48,6 +48,7 @@ router.post('/region', async (req, res) => {
   if (Object.keys(errors).length > 0) {
     res.status(422);
     res.json({ success: false, errors });
+    return;
   }
 
   try {
@@ -97,6 +98,7 @@ router.put('/region/:id', async (req, res) => {
   if (Object.keys(errors).length > 0) {
     res.status(422);
     res.json({ success: false, errors });
+    return;
   }
 
   try {
