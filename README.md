@@ -15,3 +15,8 @@ And use this command to start server side
 ````shell script
 make dev-server
 ````
+
+Use this command to start mongodb in docker
+````shell script
+make dev-mongo
+````
