@@ -7,7 +7,7 @@ class Form extends React.Component {
     this.state = {
       regions: [],
       form: {
-        region: '',
+        region: 'default',
         regionData: '',
         query: '',
         salonId: '1',
@@ -23,7 +23,10 @@ class Form extends React.Component {
     const { form } = this.state;
     const { data: { success, payload } } = await axios.get('/api/regions');
     if (success) {
-      this.setState({ regions: payload, form: { ...form, query: this.formQuery(form) } });
+      this.setState({
+        regions: payload,
+        form: { ...form, query: this.formQuery(form) },
+      });
       return;
     }
     this.setState({ form: { ...form, query: this.formQuery(form) } });
@@ -77,7 +80,7 @@ class Form extends React.Component {
   handleSelect = ({ target: { value, name } }) => {
     const { form, regions } = this.state;
 
-    const region = regions.find(({ id }) => id === Number(value));
+    const region = regions.find(({ _id }) => _id === value);
 
     const changedDistricts = {
       ...form,
@@ -92,11 +95,11 @@ class Form extends React.Component {
 
   renderRegionsSelect() {
     const { regions, form: { region } } = this.state;
-    const options = regions.map(({ _id: id, name }) => (
-      <option key={id} value={id}>{name}</option>
+    const options = regions.map(({ _id, name }) => (
+      <option key={_id} value={_id}>{name}</option>
     ));
 
-    const defaltOption = <option value="" selected disabled hidden={region !== ''}>Выберите регион</option>;
+    const defaltOption = <option key="default" value="default" selected disabled hidden={region !== ''}>Выберите регион</option>;
     const withDefaultOption = [defaltOption, ...options];
 
     return (
