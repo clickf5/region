@@ -6,7 +6,7 @@
     "start-client": "webpack-dev-server --mode=development --open --hot",
     "start-server": "nodemon --exec npx babel-node -- ./src/api/index.js",
     "build": "webpack --mode=production && webpack --mode=production --config=webpack.server.config.js",
-    "test": "jest --colors"
+    "test": "jest --colors --forceExit"
   },
   "author": "Eugene Panin",
   "license": "ISC",
