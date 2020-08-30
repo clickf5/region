@@ -92,7 +92,7 @@ class Form extends React.Component {
 
   renderRegionsSelect() {
     const { regions, form: { region } } = this.state;
-    const options = regions.map(({ id, name }) => (
+    const options = regions.map(({ _id: id, name }) => (
       <option key={id} value={id}>{name}</option>
     ));
 
