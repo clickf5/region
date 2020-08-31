@@ -12,6 +12,7 @@ const options = {
   useNewUrlParser: true,
 };
 
+let mongoServer;
 let mongoClient;
 let app;
 
@@ -19,7 +20,7 @@ describe('requests', () => {
   beforeAll(async () => {
     expect.extend(matchers);
 
-    const mongoServer = new MongoMemoryServer();
+    mongoServer = new MongoMemoryServer();
     const uri = await mongoServer.getUri();
 
     mongoClient = new MongoClient(uri, options);
@@ -37,6 +38,7 @@ describe('requests', () => {
 
   afterAll(() => {
     mongoClient.close();
+    mongoServer.stop();
   });
 
   it('GET /regions', async () => {
