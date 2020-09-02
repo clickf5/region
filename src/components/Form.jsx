@@ -99,7 +99,7 @@ class Form extends React.Component {
       <option key={_id} value={_id}>{name}</option>
     ));
 
-    const defaltOption = <option key="default" value="default" selected disabled hidden={region !== ''}>Выберите регион</option>;
+    const defaltOption = <option key="default" value="default" disabled hidden={region !== ''}>Выберите регион</option>;
     const withDefaultOption = [defaltOption, ...options];
 
     return (
